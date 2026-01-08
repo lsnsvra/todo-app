@@ -1,3 +1,4 @@
+// Section: Session Management and Logout
 <?php
 session_start();
 session_destroy();

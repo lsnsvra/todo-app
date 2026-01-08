@@ -24,7 +24,7 @@ $completedTasks = count(array_filter($tasks, function($task) {
 }));
 $pendingTasks = $totalTasks - $completedTasks;
 
-// Generate HTML content for PDF
+// Section: Generate HTML Content for PDF
 $html = '
 <!DOCTYPE html>
 <html lang="en">
