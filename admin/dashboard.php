@@ -1,4 +1,3 @@
-// Section: Includes and Admin Authentication
 <?php
 include '../middleware.php';
 adminOnly();
@@ -6,7 +5,7 @@ include '../config/db.php';
 
 // Section: Fetch Users and Tasks Data
 $users = $conn->query("SELECT id,name,email,role FROM users")->fetchAll();
-$tasks = $conn->query("SELECT tasks.id,tasks.title,tasks.status,tasks.user_id,users.name FROM tasks JOIN users ON tasks.user_id=users.id ORDER BY users.name, tasks.created_at DESC")->fetchAll();
+$tasks = $conn->query("SELECT tasks.id,tasks.title,tasks.status,tasks.user_id,users.name,tasks.created_at FROM tasks JOIN users ON tasks.user_id=users.id ORDER BY users.name, tasks.created_at DESC")->fetchAll();
 
 // Section: Calculate Statistics
 $totalUsers = count($users);
@@ -22,7 +21,7 @@ foreach ($tasks as $task) {
     $tasksByUser[$task['user_id']][] = $task;
 }
 ?>
-// Section: HTML Head
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +30,8 @@ foreach ($tasks as $task) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/css/style.css" rel="stylesheet">
+  <style>
+  </style>
 </head>
 
 <!-- Header Section-->
@@ -42,8 +43,8 @@ foreach ($tasks as $task) {
         <h2 class="text-primary fw-bold"><i class="bi bi-shield-check me-2"></i>Admin Dashboard</h2>
       </div>
       <div class="col-md-4 text-end">
-        <a href="generate_pdf.php" class="btn btn-primary btn-lg me-2"><i class="bi bi-file-earmark-pdf me-1"></i>Print
-          PDF</a>
+        <a href="../report/report.php" class="btn btn-primary btn-lg me-2"><i class="bi bi-printer me-1"></i>Print
+          Report</a>
         <a href="../auth/logout.php" class="btn btn-outline-danger btn-lg"><i
             class="bi bi-box-arrow-right me-1"></i>Logout</a>
       </div>
@@ -115,6 +116,38 @@ foreach ($tasks as $task) {
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+
+    <!-- Print-only Tasks Table -->
+    <div class="d-print-block" style="display: none;">
+      <h4 class="text-success fw-bold mb-3"><i class="bi bi-list-task me-2"></i>All Tasks</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th><i class="bi bi-card-text me-1"></i>Title</th>
+              <th><i class="bi bi-person me-1"></i>User</th>
+              <th><i class="bi bi-flag me-1"></i>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach($tasks as $task){ ?>
+            <tr>
+              <td><?= htmlspecialchars($task['title']) ?></td>
+              <td><?= htmlspecialchars($task['name']) ?></td>
+              <td>
+                <?php if($task['status'] == 'completed'){ ?>
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Selesai</span>
+                <?php } else { ?>
+                <span class="badge bg-warning text-dark"><i class="bi bi-clock me-1"></i>Belum Selesai</span>
+                <?php } ?>
+              </td>
+              </td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
       </div>
     </div>
 

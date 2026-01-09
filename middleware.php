@@ -1,4 +1,3 @@
-// Section: Session Initialization
 <?php
 session_start();
 

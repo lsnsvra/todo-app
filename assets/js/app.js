@@ -24,42 +24,6 @@ function validateTask() {
 
 // Engaging animations and interactions
 document.addEventListener("DOMContentLoaded", function () {
-  // Temporarily disable loading animation to fix delete functionality
-  // Will re-enable after confirming delete works
-  // const buttons = document.querySelectorAll('.btn:not([data-bs-toggle]):not([data-bs-dismiss]):not(#confirmDeleteBtn):not([onclick*="showDeleteModal"])');
-  // buttons.forEach(button => {
-  //     button.addEventListener('click', function() {
-  //         if (this.tagName === 'A' && this.getAttribute('href') !== '#') {
-  //             this.classList.add('btn-loading');
-  //             setTimeout(() => {
-  //                 this.classList.remove('btn-loading');
-  //             }, 1000);
-  //         }
-  //     });
-  // });
-
-  // Add ripple effect to buttons for tactile feedback
-  buttons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      const ripple = document.createElement("span");
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-      ripple.classList.add("ripple-effect");
-
-      this.appendChild(ripple);
-
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-    });
-  });
-
   // Add scroll animations for dynamic loading
   const observerOptions = {
     threshold: 0.1,
@@ -147,29 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Create confetti effect for celebrations
-function createConfetti(element) {
-  for (let i = 0; i < 15; i++) {
-    const confetti = document.createElement("div");
-    confetti.className = "confetti";
-    confetti.style.left = Math.random() * 100 + "%";
-    confetti.style.animationDelay = Math.random() * 1 + "s";
-    confetti.style.backgroundColor = [
-      "#28a745",
-      "#20c997",
-      "#17a2b8",
-      "#ffc107",
-      "#fd7e14",
-    ][Math.floor(Math.random() * 5)];
-
-    element.parentNode.appendChild(confetti);
-
-    setTimeout(() => {
-      confetti.remove();
-    }, 2500);
-  }
-}
-
 // Add engaging CSS effects
 const style = document.createElement("style");
 style.textContent = `
@@ -192,26 +133,6 @@ style.textContent = `
 
     .animate-in {
         animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    .confetti {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        animation: confetti-fall 2.5s linear forwards;
-        pointer-events: none;
-        z-index: 10;
-    }
-
-    @keyframes confetti-fall {
-        0% {
-            transform: translateY(-10px) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-        }
     }
 
     .task-card:hover .card-title {

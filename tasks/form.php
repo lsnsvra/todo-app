@@ -12,7 +12,7 @@ $isAdmin = $_SESSION['user']['role'] === 'admin';
 $users = $isAdmin ? $conn->query("SELECT id, name FROM users WHERE role != 'admin'")->fetchAll() : [];
 $isEdit = isset($task);
 ?>
-// Section: HTML Head
+
 <!DOCTYPE html>
 <html lang="en">
 

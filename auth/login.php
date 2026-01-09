@@ -1,4 +1,3 @@
-// Section: Session Initialization and Database Connection
 <?php
 session_start();
 include '../config/db.php';

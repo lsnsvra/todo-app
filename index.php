@@ -1,4 +1,3 @@
-// Section: Includes and Authentication
 <?php
 include 'middleware.php';
 auth();
@@ -16,7 +15,7 @@ $completedTasks = count(array_filter($tasks, function($task) {
 }));
 $progressPercentage = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0;
 ?>
-// Section: HTML Head
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,7 +109,7 @@ $progressPercentage = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 
     </div>
   </div>
 
-  // Section: Delete Confirmation Modal
+  <!-- Section: Delete Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -138,7 +137,6 @@ $progressPercentage = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 
     </div>
   </div>
 
-  // Section: Scripts
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
